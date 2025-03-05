@@ -1,7 +1,7 @@
 # dotfiles
 you know what this is
 
-# ZSH
+# zsh
 install omz
 ```
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -18,3 +18,14 @@ restart omz to apply changes
 ```
 omz reload
 ```
+# tmux
+install tpm
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+source it within tmux
+```
+tmux source ~/.tmux.conf
+```
+`prefix + I` wihtin tmux to install plugins
+make sure `xclip` package installed
