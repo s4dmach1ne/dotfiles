@@ -27,5 +27,4 @@ source it within tmux
 ```
 tmux source ~/.tmux.conf
 ```
-`prefix + I` wihtin tmux to install plugins
-make sure `xclip` package installed
+`prefix + I` wihtin tmux to install plugins and make sure `xclip` package installed
