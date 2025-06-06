@@ -45,6 +45,7 @@ alias grep='grep --color=auto'           # Color for grep
 alias fgrep='fgrep --color=auto'         # Color for fgrep
 alias egrep='egrep --color=auto'         # Color for egrep
 
-
-# Created by `pipx` on 2025-03-04 11:48:32
-export PATH="$PATH:/home/rei/.local/bin"
+# auto start or attach tmux
+if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
+  tmux attach-session -t default || tmux new-session -s default
+fi
