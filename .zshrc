@@ -49,3 +49,29 @@ alias egrep='egrep --color=auto'         # Color for egrep
 if command -v tmux &>/dev/null && [ -z "$TMUX" ]; then
   tmux attach-session -t default || tmux new-session -s default
 fi
+
+function faketime () {
+
+  # Store the time server globally for future function calls
+  if [[ -z "$TIME_SERVER" ]] ; then
+    if ps -p $$ -o cmd= | grep zsh >/dev/null ; then
+      # zsh user prompt
+      read TIME_SERVER?"Enter the FQDN or IP of the time server: "
+    else
+      # bash user prompt
+      read -p "Enter the FQDN or IP of the time server: " TIME_SERVER
+    fi
+    export TIME_SERVER="$TIME_SERVER"
+  fi
+
+  # Make sure the user has passed a valid target server
+  if ! /usr/sbin/ntpdate -t 1 -q "$TIME_SERVER" > /dev/null ; then
+    echo "Connectivity test to time server failed: ${TIME_SERVER}"
+    unset TIME_SERVER
+    return
+  # Target NTP server is reachable, proceed
+  else
+    /usr/bin/faketime "$(/usr/sbin/ntpdate -q $TIME_SERVER | /usr/bin/cut -d ' ' -f 1,2)" $@
+  fi
+  
+}
